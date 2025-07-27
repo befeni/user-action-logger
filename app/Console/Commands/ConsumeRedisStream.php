@@ -22,7 +22,6 @@ class ConsumeRedisStream extends Command
             // XREAD with BLOCK to wait max 5 seconds for new entries
 
             if (empty($raw)) {
-                $this->info("No new entries...");
                 continue;
             }
 
