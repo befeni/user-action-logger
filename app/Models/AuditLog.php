@@ -13,5 +13,8 @@ class AuditLog extends Model
         'user_type',
         'streamed_at',
         'data',
+        'level',
+        'trace_id',
+        'message',
     ];
 }
