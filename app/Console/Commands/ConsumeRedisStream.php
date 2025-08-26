@@ -45,15 +45,19 @@ class ConsumeRedisStream extends Command
                         return [$values[0] => $values[1]];
                     })
                     ->all();
-            
 
                 try {
                     AuditLog::create([
-                        'action' => $fields['action'] ?? null,
-                        'system' => $fields['system'] ?? null,
-                        'user_id' => $fields['user_id'] ?? null,
+                        'level'     => $fields['level']     ?? 'info',
+                        'trace_id'  => $fields['trace_id']  ?? null,
+                        'action'    => $fields['action']    ?? null,
+                        'system'    => $fields['system']    ?? null,
+                        'user_id'   => $fields['user_id']   ?? null,
                         'user_type' => $fields['user_type'] ?? null,
-                        'data' => $fields['data'] ?? null,
+                        'message'   => $fields['message']   ?? null,
+                        'data'      => $fields['data']      ?? null,
+                        'created_at' => now(),
+                        'updated_at' => now(),
                     ]);
 
                     // Remove (acknowledge) the message from the stream
