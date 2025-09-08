@@ -48,14 +48,15 @@ class ConsumeRedisStream extends Command
 
                 try {
                     AuditLog::create([
-                        'level'     => $fields['level']     ?? 'info',
-                        'trace_id'  => $fields['trace_id']  ?? null,
-                        'action'    => $fields['action']    ?? null,
-                        'system'    => $fields['system']    ?? null,
-                        'user_id'   => $fields['user_id']   ?? null,
-                        'user_type' => $fields['user_type'] ?? null,
-                        'message'   => $fields['message']   ?? null,
-                        'data'      => $fields['data']      ?? null,
+                        'level'      => $fields['level']     ?? 'info',
+                        'trace_id'   => $fields['trace_id']  ?? null,
+                        'session_id' => $fields['session_id']  ?? null,
+                        'action'     => $fields['action']    ?? null,
+                        'system'     => $fields['system']    ?? null,
+                        'user_id'    => !empty($fields['user_id']) ? (int) $fields['user_id'] : 0,
+                        'user_type'  => $fields['user_type'] ?? null,
+                        'message'    => $fields['message']   ?? null,
+                        'data'       => $fields['data']      ?? null,
                         'created_at' => now(),
                         'updated_at' => now(),
                     ]);
