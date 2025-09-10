@@ -53,7 +53,7 @@ class ConsumeRedisStream extends Command
                         'session_id' => $fields['session_id']  ?? null,
                         'action'     => $fields['action']    ?? null,
                         'system'     => $fields['system']    ?? null,
-                        'user_id'    => $fields['user_id']   ?? null,
+                        'user_id'    => !empty($fields['user_id']) ? (int) $fields['user_id'] : 0,
                         'user_type'  => $fields['user_type'] ?? null,
                         'message'    => $fields['message']   ?? null,
                         'data'       => $fields['data']      ?? null,
