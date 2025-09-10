@@ -15,6 +15,7 @@ class AuditLog extends Model
         'data',
         'level',
         'trace_id',
+        'session_id',
         'message',
     ];
 }
