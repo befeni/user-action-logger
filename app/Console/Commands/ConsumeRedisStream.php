@@ -46,6 +46,14 @@ class ConsumeRedisStream extends Command
                     })
                     ->all();
 
+                $message = "";
+
+                if ($fields['message'] !== null) {
+                    // Ensure valid UTF-8 and truncate
+                    $message = iconv('UTF-8', 'UTF-8//IGNORE', $fields['message']);
+                    $message = mb_strimwidth($message, 0, 1000, '...'); // max 1000 chars
+                }
+
                 try {
                     AuditLog::create([
                         'level'      => $fields['level']     ?? 'info',
@@ -55,7 +63,7 @@ class ConsumeRedisStream extends Command
                         'system'     => $fields['system']    ?? null,
                         'user_id'    => !empty($fields['user_id']) ? (int) $fields['user_id'] : 0,
                         'user_type'  => $fields['user_type'] ?? null,
-                        'message'    => $fields['message']   ?? null,
+                        'message'    => $message             ?? null,
                         'data'       => $fields['data']      ?? null,
                         'created_at' => now(),
                         'updated_at' => now(),
