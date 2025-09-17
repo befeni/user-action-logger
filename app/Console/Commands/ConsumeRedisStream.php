@@ -75,6 +75,7 @@ class ConsumeRedisStream extends Command
                     $this->info("Processed and deleted entry ID $id");
                 } catch (\Exception $e) {
                     $this->error("Failed to store entry $id: " . $e->getMessage());
+                    $redis->executeRaw(['XDEL', $stream, $id]);
                 }
             }
         }
