@@ -54,6 +54,11 @@ class ConsumeRedisStream extends Command
                     $message = mb_strimwidth($message, 0, 1000, '...'); // max 1000 chars
                 }
 
+                // Temporary filter to skip those actions
+                if ($fields['action'] == 'calculate_fabric_status' || $fields['action'] == 'process_fabric') {
+                    continue;
+                }
+
                 try {
                     AuditLog::create([
                         'level'      => $fields['level']     ?? 'info',
