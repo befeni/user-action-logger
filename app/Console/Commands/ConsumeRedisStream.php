@@ -56,6 +56,8 @@ class ConsumeRedisStream extends Command
 
                 // Temporary filter to skip those actions
                 if ($fields['action'] == 'calculate_fabric_status' || $fields['action'] == 'process_fabric') {
+                    $redis->executeRaw(['XDEL', $stream, $id]);
+                    $this->info("Skipped entry ID $id with action " . $fields['action']);
                     continue;
                 }
 
